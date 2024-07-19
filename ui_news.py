@@ -26,7 +26,7 @@ def load_transcript(file_path: str) -> Dict:
 def load_news_articles(file_path: str) -> List[NewsArticle]:
     try:
         with open(file_path, "r") as f:
-            data = json.loads(json.load(f))
+            data = json.load(f)
         return [article for article in data]
     except:
         return []
@@ -36,9 +36,10 @@ def main():
     st.title("News Articles and Transcript Viewer")
 
     # # Get all files from prt_transcripts
-    # transcript_files = glob.glob("./prt_transcripts/*json")
-    # transcript_files = [f for f in transcript_files if f.endswith(".json")]
-    # # print(transcript_files)
+    # transcript_folder = "./prt_transcripts"
+    # news_folder = "./news_articles_v2"
+    # transcript_files = glob.glob(f"{transcript_folder}/*.json")
+    # # print(len(transcript_files))
     # # print("\n\n")
 
     # # Create a dictionary to store both transcript and news data
@@ -46,8 +47,8 @@ def main():
 
     # for filename in transcript_files:
     #     basename = os.path.basename(filename)
-    #     transcript_path = os.path.join("./prt_transcripts", basename)
-    #     news_path = os.path.join("./news_articles", basename)
+    #     transcript_path = os.path.join(transcript_folder, basename)
+    #     news_path = os.path.join(news_folder, basename)
     #     # print(
     #     #     {
     #     #         "filename": filename,
@@ -65,10 +66,10 @@ def main():
     #                 "news_articles": news_articles,
     #             }
 
-    # # print(data.keys())
+    # print(len(data.keys()))
     # # st.write(data.keys())
     # # save the data to a JSON file
-    # json.dump(data, open("./news_articles_from_meetings..json", "w"))
+    # json.dump(data, open("./news_articles_from_meetings_focused_v2.json", "w"))
 
     # data_list = list(data.items())
 
@@ -80,18 +81,21 @@ def main():
     #         data_slice, open(f"./news_articles_from_meetings_slice_{i}.json", "w")
     #     )
 
-    # read slices
-    slices_files = glob.glob("./news_articles_from_meetings_slice_*.json")
-    data = []
-    for file in slices_files:
-        with open(file, "r") as f:
-            data += json.load(f)
+    # # read slices
+    # slices_files = glob.glob("./news_articles_from_meetings_slice_*.json")
+    # data = []
+    # for file in slices_files:
+    #     with open(file, "r") as f:
+    #         data += json.load(f)
 
-    # make dictionary
-    data = dict(data)
+    # # make dictionary
+    # data = dict(data)
+
+    data = json.load(open("./news_articles_from_meetings_focused_v2.json", "r"))
 
     # Dropdown to select a file
     selected_file = st.selectbox("Select a file", list(data.keys()))
+    counter = 0
 
     if selected_file:
         st.header(f"File: {selected_file}")
@@ -113,6 +117,7 @@ def main():
             st.write(f"Body: {article['body']}")
             st.write(f"Keywords: {', '.join(article['keywords'])}")
             st.write("---")
+            counter += 1
 
         st.write(f"Text: {transcript['text']}")
 
