@@ -69,7 +69,7 @@ def main():
     # print(len(data.keys()))
     # # st.write(data.keys())
     # # save the data to a JSON file
-    # json.dump(data, open("./news_articles_from_meetings_focused_v2.json", "w"))
+    # json.dump(data, open("./news_articles_from_meetings_focused_v3.json", "w"))
 
     # data_list = list(data.items())
 
@@ -91,7 +91,7 @@ def main():
     # # make dictionary
     # data = dict(data)
 
-    data = json.load(open("./news_articles_from_meetings_focused_v2.json", "r"))
+    data = json.load(open("./news_articles_from_meetings_focused_v3.json", "r"))
 
     # Dropdown to select a file
     selected_file = st.selectbox("Select a file", list(data.keys()))
